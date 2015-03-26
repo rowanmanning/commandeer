@@ -1,0 +1,39 @@
+{
+    "name": "commandeer",
+    "version": "0.0.0",
+    "private": true,
+
+    "description": "Proxy requests through connect and capture JSON responses before they are output",
+    "keywords": [ "capture", "connect", "json", "proxy" ],
+    "author": "Rowan Manning (http://rowanmanning.com/)",
+
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rowanmanning/commandeer.git"
+    },
+    "homepage": "https://github.com/rowanmanning/commandeer",
+    "bugs": "https://github.com/rowanmanning/commandeer/issues",
+    "license": "MIT",
+
+    "engines": {
+        "node": ">=0.10"
+    },
+    "dependencies": {
+        "http-proxy": "~1.8",
+        "underscore": "~1.8"
+    },
+    "devDependencies": {
+        "connect": "~3.3",
+        "jshint": "~2.6",
+        "mocha": "~2.2",
+        "mockery": "~1.4",
+        "proclaim": "~3.1",
+        "request": "~2.53",
+        "sinon": "~1.14"
+    },
+
+    "main": "./lib/commandeer.js",
+    "scripts": {
+        "test": "make ci"
+    }
+}
