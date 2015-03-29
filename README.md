@@ -122,6 +122,18 @@ The proxy target for the application. This should point to your back-end applica
 Defaults to `'http://localhost'`.
 
 
+Examples
+--------
+
+Commandeer comes with a few example application/backend examples. To run these examples you'll need to install [Foreman][foreman], or look into the Procfiles for the examples and spin up each process separately.
+
+### Basic example with simple JSON transform
+
+```
+foreman start -d example/basic
+```
+
+
 Contributing
 ------------
 
@@ -143,6 +155,7 @@ Copyright &copy; 2015, Rowan Manning
 
 
 [connect]: https://github.com/senchalabs/connect
+[foreman]: https://github.com/ddollar/foreman
 [mit]: LICENSE
 [npm]: https://npmjs.org/
 [travis]: https://travis-ci.org/rowanmanning/commandeer

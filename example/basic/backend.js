@@ -4,47 +4,47 @@ var connect = require('connect');
 
 var app = connect();
 
-app.use(handleRoutes);
-app.use(handleErrors);
-
-app.listen(5051, function () {
-    console.log('Backend running on port %d', 5051);
-});
-
-function handleRoutes (request, response) {
+// Handle application routes
+app.use(function (request, response) {
     var routes = {
 
+        // Index route
         '/': function (request, response) {
             response.end([
                 '<h1>Example Application</h1>',
                 '<ul>',
                     '<li><a href="/text">Plain text</a></li>',
                     '<li><a href="/html">HTML page</a></li>',
-                    '<li><a href="/json">Non-proxied JSON</a></li>',
-                    '<li><a href="/proxy-json">Proxied JSON</a></li>',
+                    '<li><a href="/json">Regular JSON</a></li>',
+                    '<li><a href="/json-commandeer">JSON which will be commandeered</a></li>',
                 '</ul>'
             ].join(''));
         },
 
+        // HTML page
         '/html': function (request, response) {
             response.end('<p>Hello World!</p>');
         },
 
+        // Plain text
         '/text': function (request, response) {
             response.end('Hello World!');
         },
 
+        // Regular JSON
         '/json': function (request, response) {
             response.end('{}');
         },
 
-        '/proxy-json': function (request, response) {
+        // JSON which will be commandeered
+        '/json-commandeer': function (request, response) {
             response.writeHead(200, {
                 'Content-Type': 'application/x-commandeer+json'
             });
             response.end('{}');
         },
 
+        // 404 page
         '_default': function (request, response) {
             response.writeHead(404, {
                 'Content-Type': 'text/plain'
@@ -54,10 +54,16 @@ function handleRoutes (request, response) {
 
     };
     (routes[request.url] || routes._default)(request, response);
-}
+});
 
-function handleErrors (error, request, response, next) {
+// Handle errors
+app.use(function (error, request, response, next) {
     // jshint unused: false
     response.writeHead(500);
     response.end('500');
-}
+});
+
+// Start the application
+app.listen(3001, function () {
+    console.log('Backend running on port %d', 3001);
+});
