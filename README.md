@@ -85,7 +85,7 @@ app.listen(3000);
 Options
 -------
 
-### `contentType` (string)
+#### `contentType` (string)
 
 Any responses with a matching `Content-Type` header will not be proxied directly. Instead, the response body will be parsed as JSON and sent to the next middleware in the stack. E.g:
 
@@ -100,7 +100,7 @@ app.use(function (request, response) {
 
 Defaults to `'application/x-commandeer+json'`.
 
-### `dataProperty` (string)
+#### `dataProperty` (string)
 
 The JSON from captured responses will be stored on this property of the response. This property can be used to access the parsed JSON in the next middleware. E.g:
 
@@ -115,7 +115,7 @@ app.use(function (request, response) {
 
 Defaults to `'proxyData'`.
 
-### `target` (string)
+#### `target` (string)
 
 The proxy target for the application. This should point to your back-end application which can serve both regular responses and proxy data reponses to be captured by `Content-Type`.
 
@@ -127,7 +127,9 @@ Examples
 
 Commandeer comes with a few example application/backend examples. To run these examples you'll need to install [Foreman][foreman], or look into the Procfiles for the examples and spin up each process separately.
 
-### Basic example with simple JSON transform
+#### Basic Example
+
+Simple JSON transform. Commandeerable JSON has a new property added before output.
 
 ```
 foreman start -d example/basic
