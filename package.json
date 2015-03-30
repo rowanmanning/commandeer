@@ -1,7 +1,6 @@
 {
     "name": "commandeer",
     "version": "0.0.0",
-    "private": true,
 
     "description": "Proxy requests through connect and capture JSON responses before they are output",
     "keywords": [ "capture", "connect", "json", "proxy" ],
