@@ -6,7 +6,7 @@ var assert = require('proclaim');
 var mockery = require('mockery');
 var sinon = require('sinon');
 
-describe('response-interceptor', function () {
+describe('lib/response-interceptor', function () {
     var http, responseInterceptor, underscore;
 
     beforeEach(function () {

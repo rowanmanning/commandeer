@@ -6,7 +6,7 @@ var assert = require('proclaim');
 var mockery = require('mockery');
 var sinon = require('sinon');
 
-describe('commandeer', function () {
+describe('lib/commandeer', function () {
     var commandeer, http, httpProxy, responseInterceptor, underscore;
 
     beforeEach(function () {
