@@ -23,7 +23,7 @@ describe('Commandeerable JSON Routes', function () {
         });
 
         it('should respond with the correct content-type header', function () {
-            assert.strictEqual(this.response.headers['content-type'], 'application/json');
+            assert.isUndefined(this.response.headers['content-type']);
         });
 
     });
@@ -69,7 +69,7 @@ describe('Commandeerable JSON Routes', function () {
         });
 
         it('should respond with the correct content-type header', function () {
-            assert.strictEqual(this.response.headers['content-type'], 'application/json');
+            assert.isUndefined(this.response.headers['content-type']);
         });
 
     });

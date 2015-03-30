@@ -142,15 +142,16 @@ describe('commandeer', function () {
                     assert.strictEqual(response.statusCode, 404);
                 });
 
-                it('should set the response content-type header to "application/json"', function () {
+                it('should remove the response content-type header', function () {
                     writeHead();
-                    assert.isTrue(response.setHeader.withArgs('Content-Type', 'application/json').calledOnce);
+                    assert.isTrue(response.removeHeader.withArgs('Content-Type').calledOnce);
                 });
 
                 it('should remove the response content-length header', function () {
                     writeHead();
                     assert.isTrue(response.removeHeader.withArgs('Content-Length').calledOnce);
                 });
+
             });
 
             describe('responseInterceptor `options.end`', function () {
