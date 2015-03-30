@@ -57,7 +57,7 @@ app.use(function (request, response, next) {
 app.use(function (request, response) {
     response.writeHead(404);
     response.end('404');
-})
+});
 
 // Handle 500 errors
 app.use(function (error, request, response, next) {

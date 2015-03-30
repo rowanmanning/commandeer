@@ -14,8 +14,7 @@ app.use(commandeer({
 
 // Handle responses with proxy data
 // (Just add another property to the JSON and output it)
-app.use(function (request, response, next) {
-    // jshint unused: false
+app.use(function (request, response) {
     response.proxyData.commandeered = true;
     response.end(JSON.stringify(response.proxyData));
 });
