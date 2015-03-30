@@ -135,6 +135,14 @@ Simple JSON transform. Commandeerable JSON has a new property added before outpu
 foreman start -d example/basic
 ```
 
+#### Hogan.js Example
+
+Render the JSON with a templating engine. Commandeerable JSON gets passed into [Hogan.js][hogan] to be rendered as a template.
+
+```
+foreman start -d example/hogan
+```
+
 
 Contributing
 ------------
@@ -158,6 +166,7 @@ Copyright &copy; 2015, Rowan Manning
 
 [connect]: https://github.com/senchalabs/connect
 [foreman]: https://github.com/ddollar/foreman
+[hogan]: https://github.com/twitter/hogan.js
 [mit]: LICENSE
 [npm]: https://npmjs.org/
 [travis]: https://travis-ci.org/rowanmanning/commandeer
