@@ -85,7 +85,7 @@ app.listen(3000);
 Options
 -------
 
-#### `contentType` (string)
+#### `contentType` (string|array)
 
 Any responses with a matching `Content-Type` header will not be proxied directly. Instead, the response body will be parsed as JSON and sent to the next middleware in the stack. E.g:
 
@@ -95,6 +95,20 @@ app.use(commandeer({
 }));
 app.use(function (request, response) {
     // Only responses from with a Content-Type of 'application/x-foo' will reach this middleware
+});
+```
+
+If an array of strings is passed in, the response `Content-Type` will be checked against each of them:
+
+```js
+app.use(commandeer({
+    contentType: [
+        'application/x-foo',
+        'application/x-bar'
+    ]
+}));
+app.use(function (request, response) {
+    // Only responses from with a Content-Type of 'application/x-foo' or 'application/x-bar' will reach this middleware
 });
 ```
 

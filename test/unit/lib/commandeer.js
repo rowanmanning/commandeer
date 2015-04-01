@@ -115,6 +115,8 @@ describe('lib/commandeer', function () {
                 it('should return `true` if response content-type is `options.contentType`', function () {
                     response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json');
                     assert.isTrue(condition());
+                    response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json; charset=utf-8');
+                    assert.isTrue(condition());
                 });
 
                 it('should return `false` if response content-type is not `options.contentType`', function () {
@@ -124,6 +126,42 @@ describe('lib/commandeer', function () {
 
                 it('should return `false` if response content-type is not set', function () {
                     assert.isFalse(condition());
+                });
+
+                describe('when `options.contentType` is an array', function () {
+
+                    beforeEach(function () {
+                        options = {
+                            contentType: [
+                                'application/x-commandeer-unit1+json',
+                                'application/x-commandeer-unit2+json'
+                            ],
+                            dataProperty: options.dataProperty,
+                            target: options.target
+                        };
+                        middleware = commandeer(options);
+                        middleware(request, response, next);
+                        condition = responseInterceptor.secondCall.args[1].condition;
+                    });
+
+                    it('should return `true` if response content-type is in `options.contentType`', function () {
+                        response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit1+json');
+                        assert.isTrue(condition());
+                        response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit1+json; charset=utf-8');
+                        assert.isTrue(condition());
+                        response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit2+json');
+                        assert.isTrue(condition());
+                        response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit2+json; charset=utf-8');
+                        assert.isTrue(condition());
+                    });
+
+                    it('should return `false` if response content-type is not in `options.contentType`', function () {
+                        response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json');
+                        assert.isFalse(condition());
+                        response.getHeader.withArgs('content-type').returns('text/html');
+                        assert.isFalse(condition());
+                    });
+
                 });
 
             });
