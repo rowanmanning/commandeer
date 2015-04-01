@@ -115,6 +115,8 @@ describe('lib/commandeer', function () {
                 it('should return `true` if response content-type is `options.contentType`', function () {
                     response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json');
                     assert.isTrue(condition());
+                    response.getHeader.withArgs('content-type').returns('application/X-Commandeer-Unit+json');
+                    assert.isTrue(condition());
                     response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json; charset=utf-8');
                     assert.isTrue(condition());
                 });
@@ -147,9 +149,13 @@ describe('lib/commandeer', function () {
                     it('should return `true` if response content-type is in `options.contentType`', function () {
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit1+json');
                         assert.isTrue(condition());
+                        response.getHeader.withArgs('content-type').returns('application/X-Commandeer-Unit1+json');
+                        assert.isTrue(condition());
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit1+json; charset=utf-8');
                         assert.isTrue(condition());
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit2+json');
+                        assert.isTrue(condition());
+                        response.getHeader.withArgs('content-type').returns('application/X-Commandeer-Unit2+json');
                         assert.isTrue(condition());
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit2+json; charset=utf-8');
                         assert.isTrue(condition());
