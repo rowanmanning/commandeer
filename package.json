@@ -18,7 +18,7 @@
         "node": ">=0.10"
     },
     "dependencies": {
-        "http-proxy": "~1.8",
+        "http-proxy": "~1.10",
         "underscore": "~1.8"
     },
     "devDependencies": {
@@ -27,8 +27,8 @@
         "jshint": "~2.6",
         "mocha": "~2.2",
         "mockery": "~1.4",
-        "proclaim": "~3.1",
-        "request": "~2.53",
+        "proclaim": "~3.2",
+        "request": "~2.55",
         "sinon": "~1.14"
     },
 
