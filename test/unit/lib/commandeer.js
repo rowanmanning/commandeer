@@ -49,6 +49,10 @@ describe('lib/commandeer', function () {
             assert.strictEqual(defaults.dataProperty, 'proxyData');
         });
 
+        it('should have a `rewriteHostHeader` property', function () {
+            assert.isTrue(defaults.rewriteHostHeader);
+        });
+
         it('should have a `target` property', function () {
             assert.strictEqual(defaults.target, 'http://localhost');
         });
@@ -56,19 +60,54 @@ describe('lib/commandeer', function () {
     });
 
     describe('commandeer()', function () {
-        var options, middleware;
+        var options, middleware, proxyServer;
 
         beforeEach(function () {
             options = {
                 contentType: 'application/x-commandeer-unit+json',
                 dataProperty: 'proxyDataUnit',
+                rewriteHostHeader: true,
                 target: 'http://localhost:1234'
             };
             middleware = commandeer(options);
+            proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
         });
 
         it('should create a proxy server', function () {
             assert.isTrue(httpProxy.createProxyServer.calledOnce);
+        });
+
+        it('should handle the proxy server "proxyReq" event', function () {
+            assert.isTrue(proxyServer.on.withArgs('proxyReq').calledOnce);
+            assert.isFunction(proxyServer.on.withArgs('proxyReq').firstCall.args[1]);
+        });
+
+        describe('proxy server "proxyReq" handler', function () {
+            var proxyOptions, proxyReqHandler, proxyRequest;
+
+            beforeEach(function () {
+                proxyOptions = {
+                    target: 'http://localhost:1234'
+                };
+                proxyRequest = new http.ClientRequest();
+                proxyReqHandler = proxyServer.on.withArgs('proxyReq').firstCall.args[1];
+                proxyReqHandler(proxyRequest, {}, {}, proxyOptions);
+            });
+
+            it('should rewrite the host header of the proxy request', function () {
+                assert.isTrue(proxyRequest.setHeader.withArgs('Host', 'localhost:1234').calledOnce);
+            });
+
+            it('should not rewrite the host header of the proxy request if `options.rewriteHostHeader` is `false`', function () {
+                proxyServer.on.reset();
+                proxyRequest.setHeader.reset();
+                options.rewriteHostHeader = false;
+                middleware = commandeer(options);
+                proxyReqHandler = proxyServer.on.withArgs('proxyReq').firstCall.args[1];
+                proxyReqHandler(proxyRequest, {}, {}, proxyOptions);
+                assert.isFalse(proxyRequest.setHeader.called);
+            });
+
         });
 
         it('should default the options', function () {
@@ -83,10 +122,9 @@ describe('lib/commandeer', function () {
         });
 
         describe('returnedFunction()', function () {
-            var proxyServer, request, response, next;
+            var request, response, next;
 
             beforeEach(function () {
-                proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
                 request = new http.ClientRequest();
                 response = new http.ServerResponse();
                 next = sinon.spy();

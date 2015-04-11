@@ -3,7 +3,9 @@
 var sinon = require('sinon');
 
 module.exports = {
-    ClientRequest: sinon.stub().returns({}),
+    ClientRequest: sinon.stub().returns({
+        setHeader: sinon.stub()
+    }),
     ServerResponse: sinon.stub().returns({
         statusCode: null,
         writeHead: sinon.stub(),

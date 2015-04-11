@@ -129,6 +129,12 @@ app.use(function (request, response) {
 
 Defaults to `'proxyData'`.
 
+#### `rewriteHostHeader` (boolean)
+
+Whether to rewrite the `Host` header of proxied requests to match the target host. This is required for some back-ends to work properly.
+
+Defaults to `true`.
+
 #### `target` (string)
 
 The proxy target for the application. This should point to your back-end application which can serve both regular responses and proxy data reponses to be captured by `Content-Type`.
