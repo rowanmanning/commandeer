@@ -135,9 +135,11 @@ Whether to rewrite the `Host` header of proxied requests to match the target hos
 
 Defaults to `true`.
 
-#### `target` (string)
+#### `target` (string|function)
 
 The proxy target for the application. This should point to your back-end application which can serve both regular responses and proxy data reponses to be captured by `Content-Type`.
+
+If `target` is a function, it will be called with a request object which can be used to decide on a target. This function must return a string.
 
 Defaults to `'http://localhost'`.
 
@@ -161,6 +163,14 @@ Render the JSON with a templating engine. Commandeerable JSON gets passed into [
 
 ```
 foreman start -d example/hogan
+```
+
+#### Multiple Backends Example
+
+Proxying to multiple backends from the same application, by using a target function rather than a string.
+
+```
+foreman start -d example/multiple-backends
 ```
 
 

@@ -1,0 +1,3 @@
+application: node ./application.js
+backend1: node ./backend1.js
+backend2: node ./backend2.js

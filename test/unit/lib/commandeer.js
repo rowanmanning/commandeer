@@ -276,4 +276,40 @@ describe('lib/commandeer', function () {
 
     });
 
+    describe('commandeer() with a function `target` option', function () {
+        var options, middleware, proxyServer;
+
+        beforeEach(function () {
+            options = {
+                contentType: 'application/x-commandeer-unit+json',
+                dataProperty: 'proxyDataUnit',
+                rewriteHostHeader: true,
+                target: sinon.stub().returns('http://localhost:1234')
+            };
+            middleware = commandeer(options);
+            proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
+        });
+
+        describe('returnedFunction()', function () {
+            var request, response, next;
+
+            beforeEach(function () {
+                request = new http.ClientRequest();
+                response = new http.ServerResponse();
+                next = sinon.spy();
+                middleware(request, response, next);
+            });
+
+            it('should call `options.target` with the request object', function () {
+                assert.isTrue(options.target.withArgs(request).calledOnce);
+            });
+
+            it('should call `proxyServer.web` with a target set to the return value of `options.target`', function () {
+                assert.strictEqual(proxyServer.web.firstCall.args[2].target, options.target.firstCall.returnValue);
+            });
+
+        });
+
+    });
+
 });

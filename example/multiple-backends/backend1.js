@@ -10,29 +10,14 @@ var routes = {
     // Index route
     '/': function (request, response) {
         response.end([
-            '<h1>Example Application</h1>',
+            '<h1>Example Backend 1</h1>',
             '<ul>',
-                '<li><a href="/text">Plain text</a></li>',
-                '<li><a href="/html">HTML page</a></li>',
-                '<li><a href="/json">Regular JSON</a></li>',
-                '<li><a href="/jsonc">Commandeerable JSON</a></li>',
+                '<li><a href="/">Page served by Backend 1</a></li>',
+                '<li><a href="/backend2">Page served by Backend 2</a></li>',
+                '<li><a href="/jsonc">Commandeerable JSON served by Backend 1 </a></li>',
+                '<li><a href="backend2/jsonc">Commandeerable JSON served by Backend 2</a></li>',
             '</ul>'
         ].join(''));
-    },
-
-    // HTML page
-    '/html': function (request, response) {
-        response.end('<p>Hello World!</p>');
-    },
-
-    // Plain text
-    '/text': function (request, response) {
-        response.end('Hello World!');
-    },
-
-    // Regular JSON
-    '/json': function (request, response) {
-        response.end('{}');
     },
 
     // JSON which will be commandeered
@@ -40,7 +25,7 @@ var routes = {
         response.writeHead(200, {
             'Content-Type': 'application/x-commandeer+json'
         });
-        response.end('{}');
+        response.end('{"backend":1}');
     }
 
 };
