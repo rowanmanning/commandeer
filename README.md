@@ -31,6 +31,16 @@ app.use(function (request, response) {
 app.listen(3000);
 ```
 
+Table Of Contents
+-----------------
+
+- [Install](#install)
+- [Getting Started](#getting-started)
+- [Options](#options)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+
 
 Install
 -------
