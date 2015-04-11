@@ -73,6 +73,13 @@ describe('lib/commandeer', function () {
             proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
         });
 
+        it('should default the options', function () {
+            assert.isTrue(underscore.defaults.calledOnce);
+            assert.deepEqual(underscore.defaults.firstCall.args[0], {});
+            assert.strictEqual(underscore.defaults.firstCall.args[1], options);
+            assert.strictEqual(underscore.defaults.firstCall.args[2], commandeer.defaults);
+        });
+
         it('should create a proxy server', function () {
             assert.isTrue(httpProxy.createProxyServer.calledOnce);
         });
@@ -108,13 +115,6 @@ describe('lib/commandeer', function () {
                 assert.isFalse(proxyRequest.setHeader.called);
             });
 
-        });
-
-        it('should default the options', function () {
-            assert.isTrue(underscore.defaults.calledOnce);
-            assert.deepEqual(underscore.defaults.firstCall.args[0], {});
-            assert.strictEqual(underscore.defaults.firstCall.args[1], options);
-            assert.strictEqual(underscore.defaults.firstCall.args[2], commandeer.defaults);
         });
 
         it('should return a function', function () {
