@@ -4,10 +4,12 @@ Commandeer
 
 Proxy requests through [Connect][connect] and capture JSON responses before they are output.
 
-**Current Version:** *0.4.0*  
-**Platform Support:** *Node.js 0.10–0.12, io.js latest*  
-**License:** [MIT][mit]  
-**Build Status:** [![Build Status][travis-img]][travis]
+[![NPM version][shield-npm]][info-npm]
+[![Node.js version support][shield-node]][info-node]
+[![io.js version support][shield-iojs]][info-iojs]
+[![Build status][shield-build]][info-build]
+[![Dependencies][shield-dependencies]][info-dependencies]
+[![MIT licensed][shield-license]][info-license]
 
 ```js
 var commandeer = require('commandeer');
@@ -189,7 +191,7 @@ make lint test
 License
 -------
 
-Commandeer is licensed under the [MIT][mit] license.  
+Commandeer is licensed under the [MIT][info-license] license.  
 Copyright &copy; 2015, Rowan Manning
 
 
@@ -197,7 +199,17 @@ Copyright &copy; 2015, Rowan Manning
 [connect]: https://github.com/senchalabs/connect
 [foreman]: https://github.com/ddollar/foreman
 [hogan]: https://github.com/twitter/hogan.js
-[mit]: LICENSE
 [npm]: https://npmjs.org/
-[travis]: https://travis-ci.org/rowanmanning/commandeer
-[travis-img]: https://travis-ci.org/rowanmanning/commandeer.svg?branch=master
+
+[info-dependencies]: https://gemnasium.com/rowanmanning/commandeer
+[info-iojs]: package.json
+[info-license]: LICENSE
+[info-node]: package.json
+[info-npm]: https://www.npmjs.com/package/commandeer
+[info-build]: https://travis-ci.org/rowanmanning/commandeer
+[shield-dependencies]: https://img.shields.io/gemnasium/rowanmanning/commandeer.svg
+[shield-iojs]: https://img.shields.io/badge/io.js%20support-latest-brightgreen.svg
+[shield-license]: https://img.shields.io/badge/license-MIT-blue.svg
+[shield-node]: https://img.shields.io/node/v/commandeer.svg?label=node.js+support
+[shield-npm]: https://img.shields.io/npm/v/commandeer.svg
+[shield-build]: https://img.shields.io/travis/rowanmanning/commandeer/master.svg
