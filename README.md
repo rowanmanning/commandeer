@@ -4,7 +4,7 @@ Commandeer
 
 Proxy requests through [Connect][connect] and capture JSON responses before they are output.
 
-**Current Version:** *0.2.0*  
+**Current Version:** *0.3.0*  
 **Node Support:** *0.10.x, 0.12.x*  
 **License:** [MIT][mit]  
 **Build Status:** [![Build Status][travis-img]][travis]
