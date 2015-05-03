@@ -143,6 +143,10 @@ describe('lib/commandeer', function () {
                 assert.strictEqual(proxyServer.web.firstCall.args[2].target, options.target);
             });
 
+            it('should call `proxyServer.web` with the `next` function as an error handler', function () {
+                assert.strictEqual(proxyServer.web.firstCall.args[3], next);
+            });
+
             describe('responseInterceptor `options.condition`', function () {
                 var condition;
 
