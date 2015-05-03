@@ -141,6 +141,18 @@ app.use(function (request, response) {
 
 Defaults to `'proxyData'`.
 
+#### `log` (object)
+
+An object which implments the methods `error` and `info` which will be used to report errors and request information.
+
+```js
+app.use(commandeer({
+    log: console
+}));
+```
+
+Defaults to a mock object which doesn't output anything.
+
 #### `rewriteHostHeader` (boolean)
 
 Whether to rewrite the `Host` header of proxied requests to match the target host. This is required for some back-ends to work properly.

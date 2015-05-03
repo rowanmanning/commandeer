@@ -49,6 +49,18 @@ describe('lib/commandeer', function () {
             assert.strictEqual(defaults.dataProperty, 'proxyData');
         });
 
+        it('should have a `log` property', function () {
+            assert.isObject(defaults.log);
+        });
+
+        it('should have a `log.error` method', function () {
+            assert.isFunction(defaults.log.error);
+        });
+
+        it('should have a `log.info` method', function () {
+            assert.isFunction(defaults.log.info);
+        });
+
         it('should have a `rewriteHostHeader` property', function () {
             assert.isTrue(defaults.rewriteHostHeader);
         });
@@ -66,6 +78,10 @@ describe('lib/commandeer', function () {
             options = {
                 contentType: 'application/x-commandeer-unit+json',
                 dataProperty: 'proxyDataUnit',
+                log: {
+                    error: sinon.spy(),
+                    info: sinon.spy()
+                },
                 rewriteHostHeader: true,
                 target: 'http://localhost:1234'
             };
@@ -117,6 +133,28 @@ describe('lib/commandeer', function () {
 
         });
 
+        it('should handle the proxy server "proxyRes" event', function () {
+            assert.isTrue(proxyServer.on.withArgs('proxyRes').calledOnce);
+            assert.isFunction(proxyServer.on.withArgs('proxyRes').firstCall.args[1]);
+        });
+
+        describe('proxy server "proxyRes" handler', function () {
+            var proxyResHandler, proxyResponse, request;
+
+            beforeEach(function () {
+                proxyResponse = new http.ServerResponse();
+                request = new http.ClientRequest();
+                request.url = '/foo';
+                proxyResHandler = proxyServer.on.withArgs('proxyRes').firstCall.args[1];
+                proxyResHandler(proxyResponse, request);
+            });
+
+            it('should log the successful proxying of the request', function () {
+                assert.isTrue(options.log.info.withArgs('Proxied "/foo" successfully').calledOnce);
+            });
+
+        });
+
         it('should return a function', function () {
             assert.isFunction(middleware);
         });
@@ -126,6 +164,7 @@ describe('lib/commandeer', function () {
 
             beforeEach(function () {
                 request = new http.ClientRequest();
+                request.url = '/foo';
                 response = new http.ServerResponse();
                 next = sinon.spy();
                 middleware(request, response, next);
@@ -133,6 +172,10 @@ describe('lib/commandeer', function () {
 
             it('should call `responseInterceptor` with the response', function () {
                 assert.isTrue(responseInterceptor.withArgs(response).calledOnce);
+            });
+
+            it('should log that the request is being proxied', function () {
+                assert.isTrue(options.log.info.withArgs('Proxying "/foo" to "http://localhost:1234/foo"').calledOnce);
             });
 
             it('should call `proxyServer.web` with the request and response', function () {
@@ -143,8 +186,8 @@ describe('lib/commandeer', function () {
                 assert.strictEqual(proxyServer.web.firstCall.args[2].target, options.target);
             });
 
-            it('should call `proxyServer.web` with the `next` function as an error handler', function () {
-                assert.strictEqual(proxyServer.web.firstCall.args[3], next);
+            it('should call `proxyServer.web` with an error handler', function () {
+                assert.isFunction(proxyServer.web.firstCall.args[3]);
             });
 
             describe('responseInterceptor `options.condition`', function () {
@@ -180,6 +223,7 @@ describe('lib/commandeer', function () {
                                 'application/x-commandeer-unit1+json',
                                 'application/x-commandeer-unit2+json'
                             ],
+                            log: options.log,
                             dataProperty: options.dataProperty,
                             target: options.target
                         };
@@ -276,6 +320,25 @@ describe('lib/commandeer', function () {
 
             });
 
+            describe('`proxyServer.web` error handler', function () {
+                var error, errorHandler;
+
+                beforeEach(function () {
+                    error = new Error('...');
+                    errorHandler = proxyServer.web.firstCall.args[3];
+                    errorHandler(error);
+                });
+
+                it('should log that the proxy failed', function () {
+                    assert.isTrue(options.log.error.withArgs('Failed to proxy "/foo"').calledOnce);
+                });
+
+                it('should call `next` with the handled error', function () {
+                    assert.isTrue(next.withArgs(error).calledOnce);
+                });
+
+            });
+
         });
 
     });
@@ -287,6 +350,10 @@ describe('lib/commandeer', function () {
             options = {
                 contentType: 'application/x-commandeer-unit+json',
                 dataProperty: 'proxyDataUnit',
+                log: {
+                    error: sinon.spy(),
+                    info: sinon.spy()
+                },
                 rewriteHostHeader: true,
                 target: sinon.stub().returns('http://localhost:1234')
             };
