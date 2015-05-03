@@ -1,6 +1,11 @@
 
 # History
 
+## 0.5.0 pre-release (2015-05-03)
+
+  * Handle errors properly if the proxy target refuses a connection
+  * Add a log option for request, success, and error logging
+
 ## 0.4.1 pre-release (2015-04-11)
 
   * Support io.js
