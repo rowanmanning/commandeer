@@ -1,5 +1,5 @@
-/* jshint maxstatements: false, maxlen: false */
-/* global beforeEach, describe, it */
+// jshint maxstatements: false
+// jscs:disable disallowMultipleVarDecl, maximumLineLength
 'use strict';
 
 var assert = require('proclaim');
@@ -64,7 +64,7 @@ describe('lib/response-interceptor', function () {
             beforeEach(function () {
                 options.condition.returns(false);
             });
-            
+
             it('should call the original `response.write`', function () {
                 response.write('foo', 'bar');
                 assert.isTrue(responseBackup.write.withArgs('foo', 'bar').calledOnce, 'Called once');

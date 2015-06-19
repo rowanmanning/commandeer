@@ -22,6 +22,7 @@
         "underscore": "~1.8"
     },
     "devDependencies": {
+        "jscs": "~1.13",
         "connect": "~3.4",
         "hogan.js": "~3.0",
         "jshint": "~2.8",

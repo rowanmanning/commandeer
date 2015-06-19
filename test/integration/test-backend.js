@@ -78,7 +78,7 @@ var routes = {
         res.end('{}');
     },
 
-    '_default': function (req, res) {
+    default: function (req, res) {
         res.writeHead(404, {
             'Content-Type': 'text/plain'
         });
@@ -88,5 +88,5 @@ var routes = {
 };
 
 function handleRoutes (req, res) {
-    (routes[req.url] || routes._default)(req, res);
+    (routes[req.url] || routes.default)(req, res);
 }
