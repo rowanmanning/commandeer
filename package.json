@@ -18,18 +18,18 @@
         "node": ">=0.10"
     },
     "dependencies": {
-        "http-proxy": "~1.10",
+        "http-proxy": "~1.11",
         "underscore": "~1.8"
     },
     "devDependencies": {
-        "connect": "~3.3",
+        "connect": "~3.4",
         "hogan.js": "~3.0",
-        "jshint": "~2.6",
+        "jshint": "~2.8",
         "mocha": "~2.2",
         "mockery": "~1.4",
         "proclaim": "~3.2",
-        "request": "~2.55",
-        "sinon": "~1.14"
+        "request": "~2.58",
+        "sinon": "~1.15"
     },
 
     "main": "./lib/commandeer.js",
