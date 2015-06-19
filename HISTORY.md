@@ -1,6 +1,11 @@
 
 # History
 
+## 0.5.1 pre-release (2015-06-19)
+
+  * Update dependencies
+  * Use JSCS to check for code-style issues
+
 ## 0.5.0 pre-release (2015-05-03)
 
   * Handle errors properly if the proxy target refuses a connection
