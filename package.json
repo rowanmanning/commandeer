@@ -22,15 +22,15 @@
         "underscore": "~1.8"
     },
     "devDependencies": {
-        "jscs": "~1.13",
-        "connect": "~3.4",
-        "hogan.js": "~3.0",
-        "jshint": "~2.8",
-        "mocha": "~2.2",
+        "jscs": "^1",
+        "connect": "^3",
+        "hogan.js": "^3",
+        "jshint": "^2",
+        "mocha": "^2",
         "mockery": "~1.4",
-        "proclaim": "~3.2",
-        "request": "~2.58",
-        "sinon": "~1.15"
+        "proclaim": "^3",
+        "request": "^2",
+        "sinon": "^1"
     },
 
     "main": "./lib/commandeer.js",
