@@ -1,6 +1,10 @@
 
 # History
 
+## 0.5.2 pre-release (2015-06-21)
+
+  * Relax some trusted dependencies
+
 ## 0.5.1 pre-release (2015-06-19)
 
   * Update dependencies
