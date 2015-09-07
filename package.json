@@ -22,6 +22,7 @@
         "underscore": "~1.8"
     },
     "devDependencies": {
+        "istanbul": "~0.3",
         "jscs": "^2",
         "connect": "^3",
         "hogan.js": "^3",
