@@ -1,6 +1,10 @@
 
 # History
 
+## 0.5.4 pre-release (2015-09-13)
+
+  * Add Node.js 4.0.0 support
+
 ## 0.5.3 pre-release (2015-08-07)
 
   * Update dependencies
