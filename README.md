@@ -6,7 +6,6 @@ Proxy requests through [Connect][connect] and capture JSON responses before they
 
 [![NPM version][shield-npm]][info-npm]
 [![Node.js version support][shield-node]][info-node]
-[![io.js version support][shield-iojs]][info-iojs]
 [![Build status][shield-build]][info-build]
 [![Dependencies][shield-dependencies]][info-dependencies]
 [![MIT licensed][shield-license]][info-license]
@@ -224,14 +223,12 @@ Copyright &copy; 2015, Rowan Manning
 [npm]: https://npmjs.org/
 
 [info-dependencies]: https://gemnasium.com/rowanmanning/commandeer
-[info-iojs]: package.json
 [info-license]: LICENSE
 [info-node]: package.json
 [info-npm]: https://www.npmjs.com/package/commandeer
 [info-build]: https://travis-ci.org/rowanmanning/commandeer
 [shield-dependencies]: https://img.shields.io/gemnasium/rowanmanning/commandeer.svg
-[shield-iojs]: https://img.shields.io/badge/io.js%20support-latest-brightgreen.svg
 [shield-license]: https://img.shields.io/badge/license-MIT-blue.svg
-[shield-node]: https://img.shields.io/node/v/commandeer.svg?label=node.js+support
+[shield-node]: https://img.shields.io/badge/node.js%20support-0.10–4.0-brightgreen.svg
 [shield-npm]: https://img.shields.io/npm/v/commandeer.svg
 [shield-build]: https://img.shields.io/travis/rowanmanning/commandeer/master.svg
