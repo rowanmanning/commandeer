@@ -1,6 +1,6 @@
 'use strict';
 
-var connect = require('connect');
+const connect = require('connect');
 
 module.exports = createTestBackend;
 
@@ -10,23 +10,23 @@ function createTestBackend (port, done) {
         .listen(port, done);
 }
 
-var routes = {
+const routes = {
 
-    '/text': function (req, res) {
+    '/text': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'text/plain'
         });
         res.end('text');
     },
 
-    '/text-with-status': function (req, res) {
+    '/text-with-status': (req, res) => {
         res.writeHead(400, {
             'Content-Type': 'text/plain'
         });
         res.end('text');
     },
 
-    '/text-with-header': function (req, res) {
+    '/text-with-header': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'text/plain',
             'X-Header': 'value'
@@ -34,21 +34,21 @@ var routes = {
         res.end('text');
     },
 
-    '/json': function (req, res) {
+    '/json': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
         res.end('{}');
     },
 
-    '/json-with-status': function (req, res) {
+    '/json-with-status': (req, res) => {
         res.writeHead(400, {
             'Content-Type': 'application/json'
         });
         res.end('{}');
     },
 
-    '/json-with-header': function (req, res) {
+    '/json-with-header': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'application/json',
             'X-Header': 'value'
@@ -56,21 +56,21 @@ var routes = {
         res.end('{}');
     },
 
-    '/json-commandeer': function (req, res) {
+    '/json-commandeer': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'application/x-commandeer-integration+json'
         });
         res.end('{}');
     },
 
-    '/json-commandeer-with-status': function (req, res) {
+    '/json-commandeer-with-status': (req, res) => {
         res.writeHead(400, {
             'Content-Type': 'application/x-commandeer-integration+json'
         });
         res.end('{}');
     },
 
-    '/json-commandeer-with-header': function (req, res) {
+    '/json-commandeer-with-header': (req, res) => {
         res.writeHead(200, {
             'Content-Type': 'application/x-commandeer-integration+json',
             'X-Header': 'value'
@@ -78,7 +78,7 @@ var routes = {
         res.end('{}');
     },
 
-    default: function (req, res) {
+    default: (req, res) => {
         res.writeHead(404, {
             'Content-Type': 'text/plain'
         });

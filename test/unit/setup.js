@@ -1,10 +1,9 @@
-// jshint maxstatements: false
-// jscs:disable disallowMultipleVarDecl, maximumLineLength
+// jscs:disable maximumLineLength
 'use strict';
 
-var mockery = require('mockery');
+const mockery = require('mockery');
 
-beforeEach(function () {
+beforeEach(() => {
     mockery.enable({
         useCleanCache: true,
         warnOnUnregistered: false,
@@ -12,7 +11,7 @@ beforeEach(function () {
     });
 });
 
-afterEach(function () {
+afterEach(() => {
     mockery.deregisterAll();
     mockery.disable();
 });

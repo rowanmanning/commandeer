@@ -1,15 +1,18 @@
-// jshint maxstatements: false
-// jscs:disable disallowMultipleVarDecl, maximumLineLength
+// jscs:disable maximumLineLength
 'use strict';
 
-var assert = require('proclaim');
-var mockery = require('mockery');
-var sinon = require('sinon');
+const assert = require('proclaim');
+const mockery = require('mockery');
+const sinon = require('sinon');
 
-describe('lib/commandeer', function () {
-    var commandeer, http, httpProxy, responseInterceptor, underscore;
+describe('lib/commandeer', () => {
+    let commandeer;
+    let http;
+    let httpProxy;
+    let responseInterceptor;
+    let underscore;
 
-    beforeEach(function () {
+    beforeEach(() => {
 
         http = require('../mock/http');
 
@@ -26,55 +29,57 @@ describe('lib/commandeer', function () {
 
     });
 
-    it('should be a function', function () {
+    it('should be a function', () => {
         assert.isFunction(commandeer);
     });
 
-    it('should have a `defaults` property', function () {
+    it('should have a `defaults` property', () => {
         assert.isObject(commandeer.defaults);
     });
 
-    describe('.defaults', function () {
-        var defaults;
+    describe('.defaults', () => {
+        let defaults;
 
-        beforeEach(function () {
+        beforeEach(() => {
             defaults = commandeer.defaults;
         });
 
-        it('should have a `contentType` property', function () {
+        it('should have a `contentType` property', () => {
             assert.strictEqual(defaults.contentType, 'application/x-commandeer+json');
         });
 
-        it('should have a `dataProperty` property', function () {
+        it('should have a `dataProperty` property', () => {
             assert.strictEqual(defaults.dataProperty, 'proxyData');
         });
 
-        it('should have a `log` property', function () {
+        it('should have a `log` property', () => {
             assert.isObject(defaults.log);
         });
 
-        it('should have a `log.error` method', function () {
+        it('should have a `log.error` method', () => {
             assert.isFunction(defaults.log.error);
         });
 
-        it('should have a `log.info` method', function () {
+        it('should have a `log.info` method', () => {
             assert.isFunction(defaults.log.info);
         });
 
-        it('should have a `rewriteHostHeader` property', function () {
+        it('should have a `rewriteHostHeader` property', () => {
             assert.isTrue(defaults.rewriteHostHeader);
         });
 
-        it('should have a `target` property', function () {
+        it('should have a `target` property', () => {
             assert.strictEqual(defaults.target, 'http://localhost');
         });
 
     });
 
-    describe('commandeer()', function () {
-        var options, middleware, proxyServer;
+    describe('commandeer()', () => {
+        let middleware;
+        let options;
+        let proxyServer;
 
-        beforeEach(function () {
+        beforeEach(() => {
             options = {
                 contentType: 'application/x-commandeer-unit+json',
                 dataProperty: 'proxyDataUnit',
@@ -89,26 +94,28 @@ describe('lib/commandeer', function () {
             proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
         });
 
-        it('should default the options', function () {
+        it('should default the options', () => {
             assert.isTrue(underscore.defaults.calledOnce);
             assert.deepEqual(underscore.defaults.firstCall.args[0], {});
             assert.strictEqual(underscore.defaults.firstCall.args[1], options);
             assert.strictEqual(underscore.defaults.firstCall.args[2], commandeer.defaults);
         });
 
-        it('should create a proxy server', function () {
+        it('should create a proxy server', () => {
             assert.isTrue(httpProxy.createProxyServer.calledOnce);
         });
 
-        it('should handle the proxy server "proxyReq" event', function () {
+        it('should handle the proxy server "proxyReq" event', () => {
             assert.isTrue(proxyServer.on.withArgs('proxyReq').calledOnce);
             assert.isFunction(proxyServer.on.withArgs('proxyReq').firstCall.args[1]);
         });
 
-        describe('proxy server "proxyReq" handler', function () {
-            var proxyOptions, proxyReqHandler, proxyRequest;
+        describe('proxy server "proxyReq" handler', () => {
+            let proxyOptions;
+            let proxyReqHandler;
+            let proxyRequest;
 
-            beforeEach(function () {
+            beforeEach(() => {
                 proxyOptions = {
                     target: 'http://localhost:1234'
                 };
@@ -117,11 +124,11 @@ describe('lib/commandeer', function () {
                 proxyReqHandler(proxyRequest, {}, {}, proxyOptions);
             });
 
-            it('should rewrite the host header of the proxy request', function () {
+            it('should rewrite the host header of the proxy request', () => {
                 assert.isTrue(proxyRequest.setHeader.withArgs('Host', 'localhost:1234').calledOnce);
             });
 
-            it('should not rewrite the host header of the proxy request if `options.rewriteHostHeader` is `false`', function () {
+            it('should not rewrite the host header of the proxy request if `options.rewriteHostHeader` is `false`', () => {
                 proxyServer.on.reset();
                 proxyRequest.setHeader.reset();
                 options.rewriteHostHeader = false;
@@ -133,15 +140,17 @@ describe('lib/commandeer', function () {
 
         });
 
-        it('should handle the proxy server "proxyRes" event', function () {
+        it('should handle the proxy server "proxyRes" event', () => {
             assert.isTrue(proxyServer.on.withArgs('proxyRes').calledOnce);
             assert.isFunction(proxyServer.on.withArgs('proxyRes').firstCall.args[1]);
         });
 
-        describe('proxy server "proxyRes" handler', function () {
-            var proxyResHandler, proxyResponse, request;
+        describe('proxy server "proxyRes" handler', () => {
+            let proxyResHandler;
+            let proxyResponse;
+            let request;
 
-            beforeEach(function () {
+            beforeEach(() => {
                 proxyResponse = new http.ServerResponse();
                 request = new http.ClientRequest();
                 request.url = '/foo';
@@ -149,20 +158,22 @@ describe('lib/commandeer', function () {
                 proxyResHandler(proxyResponse, request);
             });
 
-            it('should log the successful proxying of the request', function () {
+            it('should log the successful proxying of the request', () => {
                 assert.isTrue(options.log.info.withArgs('Proxied "/foo" successfully').calledOnce);
             });
 
         });
 
-        it('should return a function', function () {
+        it('should return a function', () => {
             assert.isFunction(middleware);
         });
 
-        describe('returnedFunction()', function () {
-            var request, response, next;
+        describe('returnedFunction()', () => {
+            let next;
+            let request;
+            let response;
 
-            beforeEach(function () {
+            beforeEach(() => {
                 request = new http.ClientRequest();
                 request.url = '/foo';
                 response = new http.ServerResponse();
@@ -170,34 +181,34 @@ describe('lib/commandeer', function () {
                 middleware(request, response, next);
             });
 
-            it('should call `responseInterceptor` with the response', function () {
+            it('should call `responseInterceptor` with the response', () => {
                 assert.isTrue(responseInterceptor.withArgs(response).calledOnce);
             });
 
-            it('should log that the request is being proxied', function () {
+            it('should log that the request is being proxied', () => {
                 assert.isTrue(options.log.info.withArgs('Proxying "/foo" to "http://localhost:1234/foo"').calledOnce);
             });
 
-            it('should call `proxyServer.web` with the request and response', function () {
+            it('should call `proxyServer.web` with the request and response', () => {
                 assert.isTrue(proxyServer.web.withArgs(request, response).calledOnce);
             });
 
-            it('should call `proxyServer.web` with a target of `options.target`', function () {
+            it('should call `proxyServer.web` with a target of `options.target`', () => {
                 assert.strictEqual(proxyServer.web.firstCall.args[2].target, options.target);
             });
 
-            it('should call `proxyServer.web` with an error handler', function () {
+            it('should call `proxyServer.web` with an error handler', () => {
                 assert.isFunction(proxyServer.web.firstCall.args[3]);
             });
 
-            describe('responseInterceptor `options.condition`', function () {
-                var condition;
+            describe('responseInterceptor `options.condition`', () => {
+                let condition;
 
-                beforeEach(function () {
+                beforeEach(() => {
                     condition = responseInterceptor.firstCall.args[1].condition;
                 });
 
-                it('should return `true` if response content-type is `options.contentType`', function () {
+                it('should return `true` if response content-type is `options.contentType`', () => {
                     response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json');
                     assert.isTrue(condition());
                     response.getHeader.withArgs('content-type').returns('application/X-Commandeer-Unit+json');
@@ -206,18 +217,18 @@ describe('lib/commandeer', function () {
                     assert.isTrue(condition());
                 });
 
-                it('should return `false` if response content-type is not `options.contentType`', function () {
+                it('should return `false` if response content-type is not `options.contentType`', () => {
                     response.getHeader.withArgs('content-type').returns('text/html');
                     assert.isFalse(condition());
                 });
 
-                it('should return `false` if response content-type is not set', function () {
+                it('should return `false` if response content-type is not set', () => {
                     assert.isFalse(condition());
                 });
 
-                describe('when `options.contentType` is an array', function () {
+                describe('when `options.contentType` is an array', () => {
 
-                    beforeEach(function () {
+                    beforeEach(() => {
                         options = {
                             contentType: [
                                 'application/x-commandeer-unit1+json',
@@ -232,7 +243,7 @@ describe('lib/commandeer', function () {
                         condition = responseInterceptor.secondCall.args[1].condition;
                     });
 
-                    it('should return `true` if response content-type is in `options.contentType`', function () {
+                    it('should return `true` if response content-type is in `options.contentType`', () => {
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit1+json');
                         assert.isTrue(condition());
                         response.getHeader.withArgs('content-type').returns('application/X-Commandeer-Unit1+json');
@@ -247,7 +258,7 @@ describe('lib/commandeer', function () {
                         assert.isTrue(condition());
                     });
 
-                    it('should return `false` if response content-type is not in `options.contentType`', function () {
+                    it('should return `false` if response content-type is not in `options.contentType`', () => {
                         response.getHeader.withArgs('content-type').returns('application/x-commandeer-unit+json');
                         assert.isFalse(condition());
                         response.getHeader.withArgs('content-type').returns('text/html');
@@ -258,41 +269,42 @@ describe('lib/commandeer', function () {
 
             });
 
-            describe('responseInterceptor `options.writeHead`', function () {
-                var writeHead;
+            describe('responseInterceptor `options.writeHead`', () => {
+                let writeHead;
 
-                beforeEach(function () {
+                beforeEach(() => {
                     writeHead = responseInterceptor.firstCall.args[1].writeHead;
                 });
 
-                it('should set the response status code', function () {
+                it('should set the response status code', () => {
                     writeHead(200);
                     assert.strictEqual(response.statusCode, 200);
                     writeHead(404);
                     assert.strictEqual(response.statusCode, 404);
                 });
 
-                it('should remove the response content-type header', function () {
+                it('should remove the response content-type header', () => {
                     writeHead();
                     assert.isTrue(response.removeHeader.withArgs('Content-Type').calledOnce);
                 });
 
-                it('should remove the response content-length header', function () {
+                it('should remove the response content-length header', () => {
                     writeHead();
                     assert.isTrue(response.removeHeader.withArgs('Content-Length').calledOnce);
                 });
 
             });
 
-            describe('responseInterceptor `options.end`', function () {
-                var end, write;
+            describe('responseInterceptor `options.end`', () => {
+                let end;
+                let write;
 
-                beforeEach(function () {
+                beforeEach(() => {
                     end = responseInterceptor.firstCall.args[1].end;
                     write = responseInterceptor.firstCall.args[1].write;
                 });
 
-                it('parse the concatenated result of all `write` calls as JSON and add to response under `options.dataProperty`', function () {
+                it('parse the concatenated result of all `write` calls as JSON and add to response under `options.dataProperty`', () => {
                     write(new Buffer('{'));
                     write(new Buffer('"foo": "bar"'));
                     write(new Buffer('}'));
@@ -302,14 +314,14 @@ describe('lib/commandeer', function () {
                     });
                 });
 
-                it('should call `next` with no error if the JSON is valid', function () {
+                it('should call `next` with no error if the JSON is valid', () => {
                     write(new Buffer('{}'));
                     end();
                     assert.isTrue(next.calledOnce);
                     assert.isUndefined(next.firstCall.args[0]);
                 });
 
-                it('call `next` with an error if the JSON is invalid', function () {
+                it('call `next` with an error if the JSON is invalid', () => {
                     write(new Buffer('{"foo"}'));
                     end();
                     assert.isUndefined(response.proxyDataUnit);
@@ -320,20 +332,21 @@ describe('lib/commandeer', function () {
 
             });
 
-            describe('`proxyServer.web` error handler', function () {
-                var error, errorHandler;
+            describe('`proxyServer.web` error handler', () => {
+                let error;
+                let errorHandler;
 
-                beforeEach(function () {
+                beforeEach(() => {
                     error = new Error('...');
                     errorHandler = proxyServer.web.firstCall.args[3];
                     errorHandler(error);
                 });
 
-                it('should log that the proxy failed', function () {
+                it('should log that the proxy failed', () => {
                     assert.isTrue(options.log.error.withArgs('Failed to proxy "/foo"').calledOnce);
                 });
 
-                it('should call `next` with the handled error', function () {
+                it('should call `next` with the handled error', () => {
                     assert.isTrue(next.withArgs(error).calledOnce);
                 });
 
@@ -343,10 +356,12 @@ describe('lib/commandeer', function () {
 
     });
 
-    describe('commandeer() with a function `target` option', function () {
-        var options, middleware, proxyServer;
+    describe('commandeer() with a function `target` option', () => {
+        let middleware;
+        let options;
+        let proxyServer;
 
-        beforeEach(function () {
+        beforeEach(() => {
             options = {
                 contentType: 'application/x-commandeer-unit+json',
                 dataProperty: 'proxyDataUnit',
@@ -361,21 +376,23 @@ describe('lib/commandeer', function () {
             proxyServer = httpProxy.createProxyServer.defaultBehavior.returnValue;
         });
 
-        describe('returnedFunction()', function () {
-            var request, response, next;
+        describe('returnedFunction()', () => {
+            let next;
+            let request;
+            let response;
 
-            beforeEach(function () {
+            beforeEach(() => {
                 request = new http.ClientRequest();
                 response = new http.ServerResponse();
                 next = sinon.spy();
                 middleware(request, response, next);
             });
 
-            it('should call `options.target` with the request object', function () {
+            it('should call `options.target` with the request object', () => {
                 assert.isTrue(options.target.withArgs(request).calledOnce);
             });
 
-            it('should call `proxyServer.web` with a target set to the return value of `options.target`', function () {
+            it('should call `proxyServer.web` with a target set to the return value of `options.target`', () => {
                 assert.strictEqual(proxyServer.web.firstCall.args[2].target, options.target.firstCall.returnValue);
             });
 

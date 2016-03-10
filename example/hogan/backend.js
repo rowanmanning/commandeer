@@ -1,14 +1,14 @@
 'use strict';
 
-var connect = require('connect');
+const connect = require('connect');
 
-var app = connect();
+const app = connect();
 
 // Application routes
-var routes = {
+const routes = {
 
     // Home page
-    '/': function (request, response) {
+    '/': (request, response) => {
         response.end(JSON.stringify({
             template: 'home',
             title: 'Home'
@@ -16,7 +16,7 @@ var routes = {
     },
 
     // About page
-    '/about': function (request, response) {
+    '/about': (request, response) => {
         response.end(JSON.stringify({
             template: 'about',
             title: 'About'
@@ -26,13 +26,13 @@ var routes = {
 };
 
 // Set the commandeerable content type for all requests
-app.use(function (request, response, next) {
+app.use((request, response, next) => {
     response.setHeader('Content-Type', 'application/x-commandeer+json');
     next();
 });
 
 // Handle application routes
-app.use(function (request, response, next) {
+app.use((request, response, next) => {
     if (routes[request.url]) {
         return routes[request.url](request, response, next);
     }
@@ -40,7 +40,7 @@ app.use(function (request, response, next) {
 });
 
 // Handle 404 errors
-app.use(function (request, response) {
+app.use((request, response) => {
     response.writeHead(404);
     response.end(JSON.stringify({
         template: 'error',
@@ -49,7 +49,7 @@ app.use(function (request, response) {
 });
 
 // Handle 500 errors
-app.use(function (error, request, response, next) {
+app.use((error, request, response, next) => {
     // jshint unused: false
     response.writeHead(500);
     response.end(JSON.stringify({
@@ -59,6 +59,6 @@ app.use(function (error, request, response, next) {
 });
 
 // Start the application
-app.listen(3001, function () {
+app.listen(3001, () => {
     console.log('Backend running on port %d', 3001);
 });

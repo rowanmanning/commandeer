@@ -1,9 +1,9 @@
 'use strict';
 
-var commandeer = require('../..');
-var connect = require('connect');
+const commandeer = require('../..');
+const connect = require('connect');
 
-var app = connect();
+const app = connect();
 
 // Initialise Commandeer with `target` set to a function
 app.use(commandeer({
@@ -25,19 +25,19 @@ function resolveTarget (request) {
 
 // Handle responses with proxy data
 // (Just add another property to the JSON and output it)
-app.use(function (request, response) {
+app.use((request, response) => {
     response.proxyData.commandeered = true;
     response.end(JSON.stringify(response.proxyData));
 });
 
 // Handle errors
-app.use(function (error, request, response, next) {
+app.use((error, request, response, next) => {
     // jshint unused: false
     response.writeHead(500);
     response.end('500');
 });
 
 // Start the application
-app.listen(3000, function () {
+app.listen(3000, () => {
     console.log('Application running on port %d', 3000);
 });

@@ -1,8 +1,7 @@
-// jshint maxstatements: false
-// jscs:disable disallowMultipleVarDecl, maximumLineLength
+// jscs:disable maximumLineLength, requireArrowFunctions
 'use strict';
 
-var assert = require('proclaim');
+const assert = require('proclaim');
 
 describe('Text routes', function () {
 

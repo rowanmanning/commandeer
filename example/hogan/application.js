@@ -1,14 +1,14 @@
 'use strict';
 
-var commandeer = require('../..');
-var connect = require('connect');
-var fs = require('fs');
-var hogan = require('hogan.js');
+const commandeer = require('../..');
+const connect = require('connect');
+const fs = require('fs');
+const hogan = require('hogan.js');
 
-var app = connect();
+const app = connect();
 
 // Compile templates
-var templates = {
+const templates = {
     about: loadTemplate('about'),
     error: loadTemplate('error'),
     home: loadTemplate('home')
@@ -16,7 +16,7 @@ var templates = {
 
 // Load a template
 function loadTemplate (name) {
-    return hogan.compile(fs.readFileSync(__dirname + '/view/' + name + '.mustache', 'utf-8'));
+    return hogan.compile(fs.readFileSync(`${__dirname}/view/${name}.mustache`, 'utf-8'));
 }
 
 // Initialise Commandeer
@@ -27,15 +27,15 @@ app.use(commandeer({
 
 // Handle responses with proxy data
 // (Render the requested template)
-app.use(function (request, response) {
-    var template = templates[response.viewData.template];
-    var output = template.render(response.viewData);
+app.use((request, response) => {
+    const template = templates[response.viewData.template];
+    const output = template.render(response.viewData);
     response.end(output);
 });
 
 // Handle errors
 // (Render the error page)
-app.use(function (error, request, response, next) {
+app.use((error, request, response, next) => {
     // jshint unused: false
     response.writeHead(500);
     response.end(templates.error.render({
@@ -45,6 +45,6 @@ app.use(function (error, request, response, next) {
 });
 
 // Start the application
-app.listen(3000, function () {
+app.listen(3000, () => {
     console.log('Application running on port %d', 3000);
 });

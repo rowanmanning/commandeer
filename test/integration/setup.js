@@ -1,32 +1,31 @@
-// jshint maxstatements: false
-// jscs:disable disallowMultipleVarDecl, maximumLineLength
+// jscs:disable maximumLineLength, requireArrowFunctions
 'use strict';
 
-var createTestApplication = require('./test-application');
-var createTestBackend = require('./test-backend');
-var request = require('request');
+const createTestApplication = require('./test-application');
+const createTestBackend = require('./test-backend');
+const request = require('request');
 
 before(function (done) {
-    var self = this;
+    const self = this;
 
-    var applicationPort = process.env.PORT || 5052;
-    var backendPort = process.env.BACKEND_PORT || 5053;
+    const applicationPort = process.env.PORT || 5052;
+    const backendPort = process.env.BACKEND_PORT || 5053;
 
-    self.request = function (method, path, headers, done) {
+    self.request = (method, path, headers, done) => {
         request({
             method: method.toUpperCase(),
-            url: 'http://localhost:' + applicationPort + path,
+            url: `http://localhost:${applicationPort}${path}`,
             headers: headers,
             json: true
-        }, function (error, response, body) {
+        }, (error, response, body) => {
             self.response = response;
             self.body = body;
             done(error);
         });
     };
 
-    createTestApplication(applicationPort, backendPort, function () {
-        createTestBackend(backendPort, function () {
+    createTestApplication(applicationPort, backendPort, () => {
+        createTestBackend(backendPort, () => {
             done();
         });
     });

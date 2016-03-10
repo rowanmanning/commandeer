@@ -1,7 +1,7 @@
 'use strict';
 
-var commandeer = require('../..');
-var connect = require('connect');
+const commandeer = require('../..');
+const connect = require('connect');
 
 module.exports = createTestApplication;
 
@@ -10,7 +10,7 @@ function createTestApplication (port, backendPort, done) {
         .use(commandeer({
             contentType: 'application/x-commandeer-integration+json',
             dataProperty: 'proxyDataIntegration',
-            target: 'http://localhost:' + backendPort
+            target: `http://localhost:${backendPort}`
         }))
         .use(handleProxyData)
         .use(handleErrors)

@@ -1,14 +1,14 @@
 'use strict';
 
-var connect = require('connect');
+const connect = require('connect');
 
-var app = connect();
+const app = connect();
 
 // Application routes
-var routes = {
+const routes = {
 
     // Index route
-    '/backend2': function (request, response) {
+    '/backend2': (request, response) => {
         response.end([
             '<h1>Example Backend 2</h1>',
             '<ul>',
@@ -21,7 +21,7 @@ var routes = {
     },
 
     // JSON which will be commandeered
-    '/backend2/jsonc': function (request, response) {
+    '/backend2/jsonc': (request, response) => {
         response.writeHead(200, {
             'Content-Type': 'application/x-commandeer+json'
         });
@@ -31,7 +31,7 @@ var routes = {
 };
 
 // Handle application routes
-app.use(function (request, response, next) {
+app.use((request, response, next) => {
     if (routes[request.url]) {
         return routes[request.url](request, response, next);
     }
@@ -39,19 +39,19 @@ app.use(function (request, response, next) {
 });
 
 // Handle 404 errors
-app.use(function (request, response) {
+app.use((request, response) => {
     response.writeHead(404);
     response.end('404');
 });
 
 // Handle 500 errors
-app.use(function (error, request, response, next) {
+app.use((error, request, response, next) => {
     // jshint unused: false
     response.writeHead(500);
     response.end('500');
 });
 
 // Start the application
-app.listen(3002, function () {
+app.listen(3002, () => {
     console.log('Backend running on port %d', 3002);
 });

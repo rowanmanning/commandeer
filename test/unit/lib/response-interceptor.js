@@ -1,15 +1,16 @@
-// jshint maxstatements: false
-// jscs:disable disallowMultipleVarDecl, maximumLineLength
+// jscs:disable maximumLineLength
 'use strict';
 
-var assert = require('proclaim');
-var mockery = require('mockery');
-var sinon = require('sinon');
+const assert = require('proclaim');
+const mockery = require('mockery');
+const sinon = require('sinon');
 
-describe('lib/response-interceptor', function () {
-    var http, responseInterceptor, underscore;
+describe('lib/response-interceptor', () => {
+    let http;
+    let responseInterceptor;
+    let underscore;
 
-    beforeEach(function () {
+    beforeEach(() => {
 
         http = require('../mock/http');
 
@@ -20,14 +21,16 @@ describe('lib/response-interceptor', function () {
 
     });
 
-    it('should be a function', function () {
+    it('should be a function', () => {
         assert.isFunction(responseInterceptor);
     });
 
-    describe('responseInterceptor()', function () {
-        var response, responseBackup, options;
+    describe('responseInterceptor()', () => {
+        let options;
+        let response;
+        let responseBackup;
 
-        beforeEach(function () {
+        beforeEach(() => {
             response = new http.ServerResponse();
             responseBackup = {
                 write: response.write,
@@ -43,43 +46,43 @@ describe('lib/response-interceptor', function () {
             responseInterceptor(response, options);
         });
 
-        it('should replace the `response.write` method', function () {
+        it('should replace the `response.write` method', () => {
             assert.notStrictEqual(response.write, responseBackup.write);
         });
 
-        it('should replace the `response.writeHead` method', function () {
+        it('should replace the `response.writeHead` method', () => {
             assert.notStrictEqual(response.writeHead, responseBackup.writeHead);
         });
 
-        it('should replace the `response.end` method', function () {
+        it('should replace the `response.end` method', () => {
             assert.notStrictEqual(response.end, responseBackup.end);
         });
 
-        it('should memoize `options.condition`', function () {
+        it('should memoize `options.condition`', () => {
             assert.isTrue(underscore.memoize.withArgs(options.condition).calledOnce);
         });
 
-        describe('when `options.condition` returns `false`', function () {
+        describe('when `options.condition` returns `false`', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 options.condition.returns(false);
             });
 
-            it('should call the original `response.write`', function () {
+            it('should call the original `response.write`', () => {
                 response.write('foo', 'bar');
                 assert.isTrue(responseBackup.write.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(responseBackup.write.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
                 assert.notStrictEqual(response.write, responseBackup.write, 'Orignal method not restored');
             });
 
-            it('should call the original `response.writeHead`', function () {
+            it('should call the original `response.writeHead`', () => {
                 response.writeHead('foo', 'bar');
                 assert.isTrue(responseBackup.writeHead.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(responseBackup.writeHead.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
                 assert.notStrictEqual(response.writeHead, responseBackup.writeHead, 'Orignal method not restored');
             });
 
-            it('should restore the original methods and call the original `response.end`', function () {
+            it('should restore the original methods and call the original `response.end`', () => {
                 response.end('foo', 'bar');
                 assert.isTrue(responseBackup.end.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(responseBackup.end.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
@@ -90,27 +93,27 @@ describe('lib/response-interceptor', function () {
 
         });
 
-        describe('when `options.condition` returns `true`', function () {
+        describe('when `options.condition` returns `true`', () => {
 
-            beforeEach(function () {
+            beforeEach(() => {
                 options.condition.returns(true);
             });
 
-            it('should call `options.write`', function () {
+            it('should call `options.write`', () => {
                 response.write('foo', 'bar');
                 assert.isTrue(options.write.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(options.write.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
                 assert.notStrictEqual(response.write, responseBackup.write, 'Orignal method not restored');
             });
 
-            it('should call `options.writeHead`', function () {
+            it('should call `options.writeHead`', () => {
                 response.writeHead('foo', 'bar');
                 assert.isTrue(options.writeHead.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(options.writeHead.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
                 assert.notStrictEqual(response.writeHead, responseBackup.writeHead, 'Orignal method not restored');
             });
 
-            it('should restore the original methods and call `options.end`', function () {
+            it('should restore the original methods and call `options.end`', () => {
                 response.end('foo', 'bar');
                 assert.isTrue(options.end.withArgs('foo', 'bar').calledOnce, 'Called once');
                 assert.isTrue(options.end.withArgs('foo', 'bar').calledOn(response), 'Called with `response` as `this`');
