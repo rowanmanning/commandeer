@@ -12,10 +12,10 @@ Proxy requests through [Connect][connect] and capture JSON responses before they
 [![MIT licensed][shield-license]][info-license]
 
 ```js
-var commandeer = require('commandeer');
-var connect = require('connect');
+const commandeer = require('commandeer');
+const connect = require('connect');
 
-var app = connect();
+const app = connect();
 
 app.use(commandeer({
     contentType: 'application/x-commandeer+json',
@@ -23,7 +23,7 @@ app.use(commandeer({
     target: 'http://localhost:1234'
 }));
 
-app.use(function (request, response) {
+app.use((request, response) => {
     response.proxyData.commandeered = true;
     response.end(JSON.stringify(response.proxyData));
 });
@@ -58,14 +58,14 @@ Getting Started
 Require in [Connect][connect] and Commandeer:
 
 ```js
-var commandeer = require('commandeer');
-var connect = require('connect');
+const commandeer = require('commandeer');
+const connect = require('connect');
 ```
 
 Create a Connect application:
 
 ```js
-var app = connect();
+const app = connect();
 ```
 
 Use the Commandeer middleware in your connect application, configuring it with a few [options](#options):
@@ -81,7 +81,7 @@ app.use(commandeer({
 Add another middleware after Commandeer to handle any JSON responses that are captured:
 
 ```js
-app.use(function (request, response) {
+app.use((request, response) => {
     response.proxyData.commandeered = true;
     response.end(JSON.stringify(response.proxyData));
 });
@@ -119,7 +119,7 @@ app.use(commandeer({
         'application/x-bar'
     ]
 }));
-app.use(function (request, response) {
+app.use((request, response) => {
     // Only responses from with a Content-Type of 'application/x-foo' or 'application/x-bar' will reach this middleware
 });
 ```
@@ -134,7 +134,7 @@ The JSON from captured responses will be stored on this property of the response
 app.use(commandeer({
     dataProperty: 'foo'
 }));
-app.use(function (request, response) {
+app.use((request, response) => {
     console.log(response.foo);
 });
 ```
