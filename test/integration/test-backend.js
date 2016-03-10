@@ -12,21 +12,21 @@ function createTestBackend (port, done) {
 
 const routes = {
 
-    '/text': (req, res) => {
+    '/text' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'text/plain'
         });
         res.end('text');
     },
 
-    '/text-with-status': (req, res) => {
+    '/text-with-status' (req, res) {
         res.writeHead(400, {
             'Content-Type': 'text/plain'
         });
         res.end('text');
     },
 
-    '/text-with-header': (req, res) => {
+    '/text-with-header' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'text/plain',
             'X-Header': 'value'
@@ -34,21 +34,21 @@ const routes = {
         res.end('text');
     },
 
-    '/json': (req, res) => {
+    '/json' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/json'
         });
         res.end('{}');
     },
 
-    '/json-with-status': (req, res) => {
+    '/json-with-status' (req, res) {
         res.writeHead(400, {
             'Content-Type': 'application/json'
         });
         res.end('{}');
     },
 
-    '/json-with-header': (req, res) => {
+    '/json-with-header' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/json',
             'X-Header': 'value'
@@ -56,21 +56,21 @@ const routes = {
         res.end('{}');
     },
 
-    '/json-commandeer': (req, res) => {
+    '/json-commandeer' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/x-commandeer-integration+json'
         });
         res.end('{}');
     },
 
-    '/json-commandeer-with-status': (req, res) => {
+    '/json-commandeer-with-status' (req, res) {
         res.writeHead(400, {
             'Content-Type': 'application/x-commandeer-integration+json'
         });
         res.end('{}');
     },
 
-    '/json-commandeer-with-header': (req, res) => {
+    '/json-commandeer-with-header' (req, res) {
         res.writeHead(200, {
             'Content-Type': 'application/x-commandeer-integration+json',
             'X-Header': 'value'
@@ -78,7 +78,7 @@ const routes = {
         res.end('{}');
     },
 
-    default: (req, res) => {
+    default (req, res) {
         res.writeHead(404, {
             'Content-Type': 'text/plain'
         });

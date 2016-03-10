@@ -8,7 +8,7 @@ const app = connect();
 const routes = {
 
     // Index route
-    '/backend2': (request, response) => {
+    '/backend2' (request, response) {
         response.end([
             '<h1>Example Backend 2</h1>',
             '<ul>',
@@ -21,7 +21,7 @@ const routes = {
     },
 
     // JSON which will be commandeered
-    '/backend2/jsonc': (request, response) => {
+    '/backend2/jsonc' (request, response) {
         response.writeHead(200, {
             'Content-Type': 'application/x-commandeer+json'
         });

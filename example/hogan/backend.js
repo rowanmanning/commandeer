@@ -8,7 +8,7 @@ const app = connect();
 const routes = {
 
     // Home page
-    '/': (request, response) => {
+    '/' (request, response) {
         response.end(JSON.stringify({
             template: 'home',
             title: 'Home'
@@ -16,7 +16,7 @@ const routes = {
     },
 
     // About page
-    '/about': (request, response) => {
+    '/about' (request, response) {
         response.end(JSON.stringify({
             template: 'about',
             title: 'About'

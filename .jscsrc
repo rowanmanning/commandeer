@@ -13,7 +13,11 @@
     "disallowNewlineBeforeBlockStatements": true,
     "disallowParenthesesAroundArrowParam": true,
     "disallowQuotedKeysInObjects": true,
-    "disallowSpaceAfterObjectKeys": true,
+    "disallowSpaceAfterObjectKeys": {
+        "allExcept": [
+            "method"
+        ]
+    },
     "disallowSpaceAfterPrefixUnaryOperators": true,
     "disallowSpaceBeforeComma": true,
     "disallowSpaceBeforeSemicolon": true,

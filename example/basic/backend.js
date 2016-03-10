@@ -8,7 +8,7 @@ const app = connect();
 const routes = {
 
     // Index route
-    '/': (request, response) => {
+    '/' (request, response) {
         response.end([
             '<h1>Example Application</h1>',
             '<ul>',
@@ -21,22 +21,22 @@ const routes = {
     },
 
     // HTML page
-    '/html': (request, response) => {
+    '/html' (request, response) {
         response.end('<p>Hello World!</p>');
     },
 
     // Plain text
-    '/text': (request, response) => {
+    '/text' (request, response) {
         response.end('Hello World!');
     },
 
     // Regular JSON
-    '/json': (request, response) => {
+    '/json' (request, response) {
         response.end('{}');
     },
 
     // JSON which will be commandeered
-    '/jsonc': (request, response) => {
+    '/jsonc' (request, response) {
         response.writeHead(200, {
             'Content-Type': 'application/x-commandeer+json'
         });
