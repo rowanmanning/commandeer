@@ -15,7 +15,7 @@
     "license": "MIT",
 
     "engines": {
-        "node": ">=0.10"
+        "node": ">=4"
     },
     "dependencies": {
         "http-proxy": "~1.13",
