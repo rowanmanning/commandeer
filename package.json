@@ -1,41 +1,42 @@
 {
-    "name": "commandeer",
-    "version": "1.0.1",
-
-    "description": "Proxy requests through connect and capture JSON responses before they are output",
-    "keywords": [ "capture", "connect", "json", "proxy" ],
-    "author": "Rowan Manning (http://rowanmanning.com/)",
-
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rowanmanning/commandeer.git"
-    },
-    "homepage": "https://github.com/rowanmanning/commandeer",
-    "bugs": "https://github.com/rowanmanning/commandeer/issues",
-    "license": "MIT",
-
-    "engines": {
-        "node": ">=4"
-    },
-    "dependencies": {
-        "http-proxy": "~1.13",
-        "underscore": "~1.8"
-    },
-    "devDependencies": {
-        "istanbul": "~0.4",
-        "jscs": "^2",
-        "connect": "^3",
-        "hogan.js": "^3",
-        "jshint": "^2",
-        "mocha": "^2",
-        "mockery": "^1",
-        "proclaim": "^3",
-        "request": "^2",
-        "sinon": "^1"
-    },
-
-    "main": "./lib/commandeer.js",
-    "scripts": {
-        "test": "make ci"
-    }
+  "name": "commandeer",
+  "version": "1.0.1",
+  "description": "Proxy requests through connect and capture JSON responses before they are output",
+  "keywords": [
+    "capture",
+    "connect",
+    "json",
+    "proxy"
+  ],
+  "author": "Rowan Manning (http://rowanmanning.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rowanmanning/commandeer.git"
+  },
+  "homepage": "https://github.com/rowanmanning/commandeer",
+  "bugs": "https://github.com/rowanmanning/commandeer/issues",
+  "license": "MIT",
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {
+    "http-proxy": "~1.13",
+    "underscore": "~1.8"
+  },
+  "devDependencies": {
+    "istanbul": "~0.4",
+    "jscs": "^2",
+    "connect": "^3",
+    "hogan.js": "^3",
+    "jshint": "^2",
+    "mocha": "^2",
+    "mockery": "^1",
+    "proclaim": "^3",
+    "request": "^2",
+    "sinon": "^1"
+  },
+  "main": "./lib/commandeer.js",
+  "scripts": {
+    "test": "make ci"
+  }
 }
