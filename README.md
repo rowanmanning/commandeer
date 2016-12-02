@@ -232,6 +232,6 @@ Copyright &copy; 2015, Rowan Manning
 [shield-coverage]: https://img.shields.io/coveralls/rowanmanning/commandeer.svg
 [shield-dependencies]: https://img.shields.io/gemnasium/rowanmanning/commandeer.svg
 [shield-license]: https://img.shields.io/badge/license-MIT-blue.svg
-[shield-node]: https://img.shields.io/badge/node.js%20support-4–6-brightgreen.svg
+[shield-node]: https://img.shields.io/badge/node.js%20support-4–7-brightgreen.svg
 [shield-npm]: https://img.shields.io/npm/v/commandeer.svg
 [shield-build]: https://img.shields.io/travis/rowanmanning/commandeer/master.svg
