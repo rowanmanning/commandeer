@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "http-proxy": "~1.13",
-    "underscore": "~1.8"
+    "underscore": "~1.10"
   },
   "devDependencies": {
     "istanbul": "~0.4",
