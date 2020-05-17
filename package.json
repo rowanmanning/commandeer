@@ -20,7 +20,7 @@
     "node": ">=4"
   },
   "dependencies": {
-    "http-proxy": "~1.13",
+    "http-proxy": "~1.18",
     "underscore": "~1.8"
   },
   "devDependencies": {
