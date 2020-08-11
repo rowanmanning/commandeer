@@ -33,7 +33,7 @@
     "mockery": "^1",
     "proclaim": "^3",
     "request": "^2",
-    "sinon": "^1"
+    "sinon": "^9"
   },
   "main": "./lib/commandeer.js",
   "scripts": {
