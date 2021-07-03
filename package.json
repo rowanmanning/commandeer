@@ -29,7 +29,7 @@
     "connect": "^3",
     "hogan.js": "^3",
     "jshint": "^2",
-    "mocha": "^2",
+    "mocha": "^9",
     "mockery": "^1",
     "proclaim": "^3",
     "request": "^2",
